@@ -1,0 +1,22 @@
+---
+- name: Install Redmine to latest version
+  hosts: D-baseimage
+  vars_files:
+    - vars/main.yml
+  roles:
+     - { 
+     role: ANXS.mysql
+      }
+
+  tasks:
+  - name: Package pre-requisites
+    apt: name={{ item }} state=latest
+    with_items:
+      - git
+      - imagemagick
+      - ruby-openid
+      - ruby
+
+  - name: Clone repository
+    git: repo=git://git@github.com:redmine/redmine.git dest=/opt/redmine-git version='{{ redmine_version }}'
+

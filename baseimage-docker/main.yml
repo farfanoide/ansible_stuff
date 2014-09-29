@@ -1,0 +1,29 @@
+---
+- name: baseimage-docker
+  hosts: Hydrogen
+  vars_files:
+    - vars/main.yml
+  tasks:
+    # - name: Pre requisites
+    #   pacman: name={{ item }} state=present
+    #   with_items:
+    #     - docker
+    #     - python2-docker (aur)
+
+    - name: Create workspace
+      command: "mkdir -p {{ image_path }}/{{ image_name }}"
+
+    - name: Create baseimage
+      template: src=templates/baseimage-docker.j2 dest="{{ image_path }}/{{ image_name }}/Dockerfile"
+
+    - name: Copy key
+      copy: src=/home/krahser/.ssh/id_rsa.pub 
+            dest="{{ image_path}}/{{ image_name }}/id_rsa.pub"
+            owner=root group=root mode=0600
+
+    - name: Delete Image
+      docker_image: name="{{ user_docker }} /{{ image_name }}" state=absent
+
+    - name: Create Image
+      docker_image: path="{{ image_path }}/{{ image_name}}" name="{{ user_docker}}/{{ image_name }}" state=present 
+ 
