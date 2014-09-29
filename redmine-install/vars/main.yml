@@ -2,7 +2,7 @@
 db_host: 'mysql.administracion'
 db_name: 'redmine'
 db_username: 'admin'
-db_password: 'redminelesart'
+db_password: 'unaContrasenia'
 target_dump: '/opt/redmine.sql.bz2'
 target_files: '/opt/redmine.tar.bz2'
 redmine_path: '/var/www/redmine/'
