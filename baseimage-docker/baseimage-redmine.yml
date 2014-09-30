@@ -1,7 +1,0 @@
----
-- name: Last state baseimage
-  vars_files:
-    - vars/main.yml
-  local_action:
-    docker_image: name="{{ user_docker }} /{{ image_name }}" state=absent
-    docker_image: path="{{ image_path }}/{{ image_name}}" name="krahser/{{ image_name }}" state=present

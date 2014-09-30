@@ -21,9 +21,15 @@
             dest="{{ image_path}}/{{ image_name }}/id_rsa.pub"
             owner=root group=root mode=0600
 
+    - name: Kill container
+      docker: image="{{ user_docker}}/{{ image_name }}:latest" state=killed
+
     - name: Delete Image
-      docker_image: name="{{ user_docker }} /{{ image_name }}" state=absent
+      docker_image: name="{{ user_docker }} /{{ image_name }}:latest" state=absent
 
     - name: Create Image
       docker_image: path="{{ image_path }}/{{ image_name}}" name="{{ user_docker}}/{{ image_name }}" state=present 
+
+    - name: Running Container
+      docker: image="{{ user_docker}}/{{ image_name }}:latest" state=running publish_all_ports=yes
  

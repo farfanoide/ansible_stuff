@@ -1,7 +1,7 @@
 ---
 user_docker: "krahser"
 image_name: "baseimage-redmine"
-image_version: "0.9.9"
+image_version: "0.9.13"
 image_path: "/Docker"
     
 
